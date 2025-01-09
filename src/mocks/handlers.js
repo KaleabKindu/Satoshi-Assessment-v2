@@ -28,6 +28,15 @@ export const handlers = [
 
     return HttpResponse.json(project);
   }),
+    // Mock Favourite Projects GET request
+    http.get(`${baseURL}/projects/favourite`, async () => {
+        const favoriteProjects = projects.filter(project => project.favourite);
+
+        await delay(1000);
+    
+        return HttpResponse.json(favoriteProjects);
+      }),
+
   // Mock PUT request to update a project
   http.post(`${baseURL}/project`, async ({ request }) => {
     const newProject = await request.json(); // Parse the body to get the object
@@ -77,7 +86,7 @@ export const handlers = [
   }),
   // Mock PUT request to update a project
   http.put(
-    `${baseURL}/projects/favourite/:projectId`,
+    `${baseURL}/project/favourite/:projectId`,
     async ({ params, request }) => {
       const { projectId } = params;
       const { favourite } = await request.json(); // Parse the body to get the object
@@ -99,7 +108,7 @@ export const handlers = [
       );
 
       // Return just the updated project for consistency
-      updatedProject = projects.find((p) => p.id === id);
+      updatedProject = projects.find((p) => p.id === projectId);
 
       await delay(1000);
 

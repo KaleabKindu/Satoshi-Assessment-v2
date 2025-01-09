@@ -3,7 +3,7 @@ import Drawer from "@mui/material/Drawer";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
-import SideBar from "./SideBar";
+import FavoriteProjects from "./FavouriteProjects";
 
 const MobileDrawer = (props) => {
   // State to manage the open/close status of the drawer
@@ -31,7 +31,7 @@ const MobileDrawer = (props) => {
             </IconButton>
           </div>
           {/* Content inside the drawer */}
-          <div>Mobile Drawer</div>
+          <FavoriteProjects />
         </div>
       </Drawer>
     </div>

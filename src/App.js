@@ -11,9 +11,9 @@ function App() {
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/projects" element={<Projects />} />
-      <Route path="/projects/:id" element={<Project />} />
-      <Route path="/projects/:id/edit" element={<EditProject />} />
       <Route path="/projects/new" element={<AddProject />} />
+      <Route path="/project/:id" element={<Project />} />
+      <Route path="/project/:id/edit" element={<EditProject />} />
     </Routes>
   );
 }

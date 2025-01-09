@@ -17,6 +17,11 @@ export const useGetProjectById = (projectId) => {
   );
 };
 
+export const useGetFavouriteProjects = () =>
+  useQuery("favouriteProjects", () =>
+    fetch(`${baseURL}/projects/favourite`).then((res) => res.json())
+  );
+
 export const useCreateProject = () => {
   const queryClient = useQueryClient();
   return useMutation(
@@ -57,11 +62,11 @@ export const useUpdateProjectById = (projectId) => {
   );
 };
 
-export const useUpdateFavouriteProjectById = (projectId) => {
+export const useUpdateFavouriteProjectById = () => {
   const queryClient = useQueryClient();
   return useMutation(
-    (favourite) =>
-      fetch(`${baseURL}/project/${projectId}`, {
+    ({projectId, favourite}) =>
+      fetch(`${baseURL}/project/favourite/${projectId}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -69,9 +74,11 @@ export const useUpdateFavouriteProjectById = (projectId) => {
         body: JSON.stringify({ favourite: favourite }),
       }).then((res) => res.json()),
     {
-      onSuccess: () => {
-        queryClient.invalidateQueries(["project", projectId]); // Invalidate the specific project
+      onSuccess: (a) => {
+        // queryClient.invalidateQueries(["project", projectId]); // Invalidate the specific project
+        queryClient.invalidateQueries("favouriteProjects"); // Optionally, invalidate the list of projects
         queryClient.invalidateQueries("projects"); // Optionally, invalidate the list of projects
+
       },
     }
   );
