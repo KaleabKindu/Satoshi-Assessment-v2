@@ -5,6 +5,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useGetProjectById, useUpdateProjectById } from "../hooks/api";
 import { Box } from "@mui/material";
 import CircularProgress from "@mui/material/CircularProgress";
+import { toast } from "react-toastify";
 
 const EditProject = () => {
   const { id } = useParams();
@@ -18,6 +19,7 @@ const EditProject = () => {
         navigate("/projects");
       } catch (error) {
         console.log("error", error);
+        toast.error(error.message);
       }
     },
     [id]

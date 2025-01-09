@@ -5,6 +5,7 @@ import { TextField } from "@mui/material";
 import { FormError, FormLabel } from "./FormElements";
 import { Button } from "@mui/material";
 import CircularProgress from "@mui/material/CircularProgress";
+import { ToastContainer } from 'react-toastify';
 
 // Define the validation schema using Yup
 const formSchema = object({
@@ -196,6 +197,7 @@ const ProjectForm = ({ loading, onSubmit, project, update }) => {
           )}
         </Button>
       </div>
+      <ToastContainer />
     </form>
   );
 };

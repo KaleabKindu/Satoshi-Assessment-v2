@@ -32,6 +32,11 @@ export const useCreateProject = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(project),
+      }).then((response) => {
+        if (!response.ok) {
+          throw new Error("Internal Server Error");
+        }
+        return response.json();
       }),
     {
       onSuccess: () => {
@@ -52,7 +57,12 @@ export const useUpdateProjectById = (projectId) => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(updatedProject),
-      }).then((res) => res.json()),
+      }).then((response) => {
+        if (!response.ok) {
+          throw new Error("Internal Server Error");
+        }
+        return response.json();
+      }),
     {
       onSuccess: () => {
         queryClient.invalidateQueries(["project", projectId]); // Invalidate the specific project
@@ -65,14 +75,19 @@ export const useUpdateProjectById = (projectId) => {
 export const useUpdateFavouriteProjectById = () => {
   const queryClient = useQueryClient();
   return useMutation(
-    ({projectId, favourite}) =>
+    ({ projectId, favourite }) =>
       fetch(`${baseURL}/project/favourite/${projectId}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ favourite: favourite }),
-      }).then((res) => res.json()),
+      }).then((response) => {
+        if (!response.ok) {
+          throw new Error("Internal Server Error");
+        }
+        return response.json();
+      }),
     {
       onSuccess: (_, { projectId }) => {
         queryClient.invalidateQueries(["project", projectId]); // Invalidate the specific project
