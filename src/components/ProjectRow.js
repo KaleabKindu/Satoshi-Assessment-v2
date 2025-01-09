@@ -1,36 +1,19 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import TableCell from "@mui/material/TableCell";
 import TableRow from "@mui/material/TableRow";
 import { Button } from "@mui/material";
 import { useNavigate } from "react-router";
-import { IconButton } from "@mui/material";
-import { useUpdateFavouriteProjectById } from "../hooks/api";
-import FavoriteColor from "../../public/favorite-color.png";
-import FavoriteOutline from "../../public/favorite-outline.png";
-import CircularProgress from "@mui/material/CircularProgress";
 import { columns } from "../data";
+import ToggleFavouriteButton from "./ToggleFavouriteButton";
 
 const ProjectRow = ({ project }) => {
   const navigate = useNavigate(); // Hook to navigate programmatically
-  const [favourite, setFavourite] = useState(project.favourite);
-  const { mutate, isLoading: updating } = useUpdateFavouriteProjectById();
-  const handleFavouriteClick = (e) => {
-    e.stopPropagation()
-    mutate(
-      { projectId: project.id, favourite: !favourite },
-      {
-        onSuccess: () => setFavourite(!favourite),
-        onError: () => console.log("error", error),
-      }
-    );
-  };
   return (
     <TableRow
       hover
       key={project.id}
-      
       onClick={() => navigate(`/project/${project.id}`)}
-      sx={{ cursor:"pointer", backgroundColor: "rgb(241, 241, 241)" }}
+      sx={{ cursor: "pointer", backgroundColor: "rgb(241, 241, 241)" }}
     >
       {columns.map((column) => {
         const value = project[column.id];
@@ -52,35 +35,26 @@ const ProjectRow = ({ project }) => {
         sx={{
           display: "flex",
           justifyContent: "space-between",
-          alignItems:"center",
+          alignItems: "center",
           paddingY: "10px",
           borderBottom: "none",
         }}
       >
-        <IconButton onClick={handleFavouriteClick}>
-          {updating ? (
-            <CircularProgress size={25} />
-          ) : (
-            <img
-              width={30}
-              height={30}
-              src={favourite ? FavoriteColor : FavoriteOutline}
-              alt="Favourite"
-            />
-          )}
-        </IconButton>
-
+        <ToggleFavouriteButton
+          id={project.id}
+          isFavourite={project.favourite}
+        />
         <Button
           className="bg-blue-500"
           onClick={(e) => {
-            e.stopPropagation()
-            navigate(`/project/${project.id}/edit`)
-        }}
+            e.stopPropagation();
+            navigate(`/project/${project.id}/edit`);
+          }}
           sx={{
             borderRadius: "0px",
             backgroundColor: "rgb(59 130 246)",
             color: "white",
-            height: "35px"
+            height: "35px",
           }}
         >
           Edit

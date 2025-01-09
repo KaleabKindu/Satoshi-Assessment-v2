@@ -74,11 +74,10 @@ export const useUpdateFavouriteProjectById = () => {
         body: JSON.stringify({ favourite: favourite }),
       }).then((res) => res.json()),
     {
-      onSuccess: (a) => {
-        // queryClient.invalidateQueries(["project", projectId]); // Invalidate the specific project
+      onSuccess: (_, { projectId }) => {
+        queryClient.invalidateQueries(["project", projectId]); // Invalidate the specific project
         queryClient.invalidateQueries("favouriteProjects"); // Optionally, invalidate the list of projects
         queryClient.invalidateQueries("projects"); // Optionally, invalidate the list of projects
-
       },
     }
   );
