@@ -28,21 +28,21 @@ export const handlers = [
 
     return HttpResponse.json(project);
   }),
-    // Mock Favourite Projects GET request
-    http.get(`${baseURL}/projects/favourite`, async () => {
-        const favoriteProjects = projects.filter(project => project.favourite);
+  // Mock Favourite Projects GET request
+  http.get(`${baseURL}/projects/favourite`, async () => {
+    const favoriteProjects = projects.filter((project) => project.favourite);
 
-        await delay(1000);
-    
-        return HttpResponse.json(favoriteProjects);
-      }),
+    await delay(1000);
+
+    return HttpResponse.json(favoriteProjects);
+  }),
 
   // Mock PUT request to update a project
   http.post(`${baseURL}/project`, async ({ request }) => {
     const newProject = await request.json(); // Parse the body to get the object
 
     // Update the project in the data array
-    projects = projects.push({ ...newProject });
+    projects = [...projects, { ...newProject }];
 
     await delay(1000);
 
@@ -59,7 +59,7 @@ export const handlers = [
   }),
 
   // Mock PUT request to update a project
-  http.put(`${baseURL}/projects/:projectId`, async ({ params, request }) => {
+  http.put(`${baseURL}/project/:projectId`, async ({ params, request }) => {
     const { projectId } = params;
     const updatedData = await request.json(); // Parse the body to get the object
 

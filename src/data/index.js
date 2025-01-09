@@ -23,6 +23,6 @@ export const columns = [
     {
       id: "action",
       label: "",
-      minWidth: 100,
+      minWidth: 150,
     },
   ];
