@@ -34,12 +34,12 @@ const ProjectForm = ({ loading, onSubmit, project, update }) => {
   const { values, handleChange, handleBlur, errors, touched, handleSubmit } =
     useFormik({
       initialValues: {
-        id: project?.id,
-        name: project?.name,
-        description: project?.description,
-        start_date: project?.start_date,
-        end_date: project?.end_date,
-        manager: project?.manager,
+        id: project?.id || "",
+        name: project?.name || "",
+        description: project?.description || "",
+        start_date: project?.start_date || "",
+        end_date: project?.end_date || "",
+        manager: project?.manager || "",
       },
       validationSchema: formSchema,
       onSubmit: async (values) => {
