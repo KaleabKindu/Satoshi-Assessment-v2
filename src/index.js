@@ -3,6 +3,9 @@ import { createRoot } from "react-dom/client";
 import App from "./App";
 import { BrowserRouter } from "react-router-dom";
 import "./index.css";
+import { QueryClientProvider, QueryClient } from "react-query";
+
+const queryClient = new QueryClient()
 
 // Function to enable mocking for API calls
 async function enableMocking() {
@@ -21,7 +24,9 @@ enableMocking().then(() => {
   root.render(
     <React.StrictMode>
       <BrowserRouter>
-        <App />
+        <QueryClientProvider client={queryClient}>
+            <App />
+        </QueryClientProvider>
       </BrowserRouter>
     </React.StrictMode>
   );
