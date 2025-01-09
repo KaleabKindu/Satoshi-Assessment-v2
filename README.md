@@ -14,7 +14,7 @@ Ensure you have the following installed:
 ### Clone the Repository
 
 ```bash
-git clone https://github.com/KaleabKindu/Satoshi-Assessment-V2
+git clone https://github.com/KaleabKindu/Satoshi-Assessment-v2
 cd Satoshi-Assessment
 ```
 

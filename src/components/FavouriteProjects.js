@@ -2,6 +2,7 @@ import React from "react";
 import { useGetFavouriteProjects } from "../hooks/api";
 import { Box } from "@mui/material";
 import CircularProgress from "@mui/material/CircularProgress";
+import { Link } from "react-router-dom";
 
 const FavoriteProjects = () => {
   const { data: projects,isLoading } = useGetFavouriteProjects();
@@ -26,7 +27,9 @@ const FavoriteProjects = () => {
         <ul className="flex flex-col gap-1 pl-2">
           {projects?.map((project) => (
             <li key={project.id} className="list-disc list-inside">
-              {project.name}
+              <Link to={`/project/${project.id}`}>
+                {project.name}
+              </Link>
             </li>
           ))}
         </ul>
